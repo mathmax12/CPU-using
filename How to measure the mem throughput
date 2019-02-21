@@ -1,0 +1,35 @@
+Download PCM tools to measure host memory bandwidth usage. Open a new terminal and execute the following steps.
+
+cd /opt
+git clone https://github.com/opcm/pcm
+cd pcm
+make
+
+Execute the following options to start memory bandwidth measurements every second.
+
+modprobe msr
+
+echo 0 > /proc/sys/kernel/nmi_watchdog
+
+/opt/pcm/pcm-memory.x 1
+
+You should see output similar to the text below output every second.
+|---------------------------------------||---------------------------------------|
+|--             Socket  0             --||--             Socket  1             --|
+|---------------------------------------||---------------------------------------|
+|--     Memory Channel Monitoring     --||--     Memory Channel Monitoring     --|
+|---------------------------------------||---------------------------------------|
+|-- Mem Ch  0: Reads (MB/s):     0.41 --||-- Mem Ch  0: Reads (MB/s):     0.38 --|
+|--            Writes(MB/s):     0.17 --||--            Writes(MB/s):     0.37 --|
+|-- Mem Ch  1: Reads (MB/s):     8.39 --||-- Mem Ch  1: Reads (MB/s):     8.33 --|
+|--            Writes(MB/s):     8.15 --||--            Writes(MB/s):     8.32 --|
+|-- NODE 0 Mem Read (MB/s) :     8.80 --||-- NODE 1 Mem Read (MB/s) :     8.72 --|
+|-- NODE 0 Mem Write(MB/s) :     8.32 --||-- NODE 1 Mem Write(MB/s) :     8.69 --|
+|-- NODE 0 P. Write (T/s):     124379 --||-- NODE 1 P. Write (T/s):     124381 --|
+|-- NODE 0 Memory (MB/s):       17.12 --||-- NODE 1 Memory (MB/s):       17.40 --|
+|---------------------------------------||---------------------------------------|
+|---------------------------------------||---------------------------------------|
+|--                 System Read Throughput(MB/s):         17.52                --|
+|--                System Write Throughput(MB/s):         17.01                --|
+|--               System Memory Throughput(MB/s):         34.53                --|
+|---------------------------------------||---------------------------------------|
